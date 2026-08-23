@@ -1,9 +1,0 @@
-target
-.mvn
-.git
-.idea
-.classpath
-.project
-.settings
-*.log
-node_modules
