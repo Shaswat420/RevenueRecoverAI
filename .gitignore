@@ -1,0 +1,25 @@
+# Java / Maven
+backend/target/
+*.class
+
+# Python
+ai-service/__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# macOS
+.DS_Store
+
+# IDE
+.idea/
+.vscode/

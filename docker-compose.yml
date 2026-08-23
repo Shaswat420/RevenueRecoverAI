@@ -1,0 +1,53 @@
+services:
+
+  mysql:
+    image: mysql:9.4
+    container_name: revenue-recover-mysql
+    restart: unless-stopped
+
+    environment:
+      MYSQL_ROOT_PASSWORD: NewPassword123!
+      MYSQL_DATABASE: revenue_recover_ai
+
+    ports:
+      - "3307:3306"
+
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+
+    container_name: revenue-recover-backend
+    restart: unless-stopped
+
+    depends_on:
+      - mysql
+
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/revenue_recover_ai
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: NewPassword123!
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+
+    ports:
+      - "8080:8080"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+
+    container_name: revenue-recover-frontend
+    restart: unless-stopped
+
+    depends_on:
+      - backend
+
+    ports:
+      - "3000:80"
+
+volumes:
+  mysql_data:
